@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { useState } from "react";
+import Addcategory from "./components/Addcategory";
+import GifResult from "./components/GifResult";
+const App = (props) => {
+  const [categories, setCategories] = useState(["Vikings"]);
+  const handleAdd = (cat) => {
+    let newCat = [...categories];
+    newCat.unshift(cat);
+    setCategories(newCat);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h2>GifExpertApp</h2>
+      <Addcategory addCategories={handleAdd} />
+      <hr />
+      <ol>
+        {categories.map((el) => {
+          return (
+            <li key={el}>
+              <GifResult categorie={el} />
+            </li>
+          );
+        })}
+      </ol>
+    </>
   );
-}
+};
 
 export default App;
